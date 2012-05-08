@@ -39,17 +39,18 @@ class Grid
     
     processFile: (evt) =>
         fileName = evt.target.fileName.match(/\/*([^/]*)$/)[1]
-        base64Image = evt.target.result            
-        id = @getNewGridElementId()    
-        $('#image_' + id).attr('src', base64Image)
-        $('#image_' + id).click(-> new Sync().upload(base64Image))  #Upload on click for now
-        $('#span_'  + id).text(fileName)
+        base64Image = evt.target.result   
+        $('#main-data-list').append("<li id='a_" + currentImageId + "'><img src=" + base64Image + " />" + fileName + "</li>")         
+        id = @getNewGridElementId(fileName)    
+        $('#a_' + id).click(-> new Sync().upload(base64Image))  #Upload on click for now
+        $('#main-data-list').listview('refresh')
     
-    getNewGridElementId: () =>
-        new_element = "<div class='ui-block-" + blockMap[currentGridPosition++ % 2] + "'>" + 
-                      "<img id='image_" + currentImageId + "' />" + 
-                      "<span id='span_" + currentImageId + "'></span></div>"
-        $('#main-data-grid').append(new_element)
+    getNewGridElementId: (fileName) =>
+        #new_element = "<div class='ui-block-" + blockMap[currentGridPosition++ % 2] + "'>" + 
+        #              "<img id='image_" + currentImageId + "' />" + 
+        #              "<span id='span_" + currentImageId + "'></span></div>"
+        #$('#main-data-grid').append(new_element)
+        
         return currentImageId++
         
     fail: (evt) =>
