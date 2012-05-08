@@ -1,0 +1,39 @@
+!!! 5
+%html
+  %head
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"} 
+    %title PhoneGap
+
+    %script{:type => "text/javascript", :src => "libs/cordova-1.5.0.js"}    
+    %script{:type => "text/javascript", :src => "libs/jquery-1.6.4.min.js"}
+    %script{:type => "text/javascript", :src => "libs/jquery.mobile-1.0.1.min.js"}
+    %script{:type => "text/javascript", :src => "js/grid.js"}
+    %script{:type => "text/javascript", :src => "js/sync.js"}
+    %script{:type => "text/javascript", :src => "js/auth.js"}   
+
+    %link{:rel => "stylesheet", :href => "libs/jquery.mobile-1.0.1.min.css"}
+    %link{:rel => "stylesheet", :href => "css/grid.css"}
+
+    :javascript
+      document.addEventListener("deviceready", function(){
+          window.SERVER_URL = 'http://10.0.0.99:3000';
+          $.mobile.allowCrossDomainPages = true;          
+          window.grid = new Grid();
+          window.grid.onDeviceReady();
+          window.grid.processLogin();   
+      }, false);  
+      $('#grid-page').live( 'pageshow',function(event, ui){
+          if(window.grid){
+            new Grid().processLogin();
+          }
+      });
+  %body
+    %div#grid-page(data-role="page")
+
+      %div(data-role="header" data-theme="a")
+        %h1#info-bar Title
+        %a(href="javascript:location.reload();" data-icon="refresh" data-role="button" data-theme="a" data-mini="false") Refresh
+        %a#login-button(href="login.html" data-icon="gear" data-role="button" data-theme="a" data-mini="false" data-iconpos="right") Login
+
+      %div(data-role="content")
+        %div.ui-grid-a#main-data-grid

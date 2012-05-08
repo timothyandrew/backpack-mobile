@@ -1,0 +1,28 @@
+!!! 5
+%html
+  %head
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"} 
+    %title PhoneGap
+
+    %script{:type => "text/javascript", :src => "libs/cordova-1.5.0.js"}    
+    %script{:type => "text/javascript", :src => "libs/jquery-1.6.4.min.js"}
+    %script{:type => "text/javascript", :src => "libs/jquery.mobile-1.0.1.min.js"}
+    %script{:type => "text/javascript", :src => "js/sync.js"}  
+    %script{:type => "text/javascript", :src => "js/auth.js"}  
+
+    %link{:rel => "stylesheet", :href => "libs/jquery.mobile-1.0.1.min.css"}
+    %link{:rel => "stylesheet", :href => "css/grid.css"}
+
+  %body
+    %div#login-page(data-role="page")
+
+      %div(data-role="header")
+        %a(href="index.html" data-icon="back" data-role="button" data-theme="a" data-mini="false") Back
+        %h1 Login       
+        %a(href="javascript:location.reload();" data-icon="refresh" data-role="button" data-theme="a" data-mini="false") Refresh
+
+
+      %div(data-role="content" data-theme="a")
+        %input#user{:type => 'text', :name => 'username', :placeholder => 'Enter your username', :value => 'timothyandrew'}
+        %input#pass{:type => 'password', :name => 'password', :placeholder => 'And password', :value => 'mfalcon'}
+        %a#login-button(href="javascript:new Sync().login();" data-role="button" data-theme="b") Login/Register
